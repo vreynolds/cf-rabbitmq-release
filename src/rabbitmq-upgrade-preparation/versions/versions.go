@@ -48,7 +48,7 @@ type ErlangVersions struct {
 }
 
 func (v *ErlangVersions) PreparationRequired() (bool, error) {
-	return isMajorErlangUpgrade(versionComponents(v.Desired), versionComponents(v.Deployed)), nil
+	return false, nil
 }
 
 func (v *ErlangVersions) UpgradeMessage() string {

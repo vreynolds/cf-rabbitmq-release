@@ -122,7 +122,7 @@ var _ = Describe("Upgrading RabbitMQ", func() {
 		})
 	})
 
-	Context("When upgrading Erlang", func() {
+	Context("When upgrading Erlang minor version", func() {
 		BeforeEach(func() {
 			cwd, err := os.Getwd()
 			Expect(err).NotTo(HaveOccurred())
@@ -132,6 +132,23 @@ var _ = Describe("Upgrading RabbitMQ", func() {
 				"-node", "rabbit@host",
 				"-new-rabbitmq-version", "3.4.3.1",
 				"-new-erlang-version", "17.1",
+			}
+		})
+
+		itExitsWithZero()
+		itDoesntCallStopApp()
+	})
+
+	Context("When upgrading Erlang major version", func() {
+		BeforeEach(func() {
+			cwd, err := os.Getwd()
+			Expect(err).NotTo(HaveOccurred())
+
+			args = []string{
+				"-rabbitmqctl-path", filepath.Join(cwd, "..", "rabbitmqctl", "test-assets", "rabbitmqctl-erlang-17-rabbit-3.4.3.1.sh"),
+				"-node", "rabbit@host",
+				"-new-rabbitmq-version", "3.4.3.1",
+				"-new-erlang-version", "18",
 			}
 		})
 
